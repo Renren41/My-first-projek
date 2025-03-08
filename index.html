@@ -1,52 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Info Bukber</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bukber Cok</title>
     <style>
-        /* CSS for the Loading Spinner */
-        .image-container {
-            position: relative;
-            display: inline-block;
-            width: 300px; /* Adjust based on text width */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
         }
-
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Image Styling */
-        .image-container img {
-            width: 300px;  /* Adjust based on text width */
-            height: auto;  /* Maintain aspect ratio */
-            display: block;
+        #infoGambar {
+            display: none;
             margin-top: 10px;
+        }
+        img {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            display: none; /* Gambar disembunyikan hingga dimuat */
+        }
+        #loading {
+            display: none;
+            font-style: italic;
+            color: gray;
+            margin-top: 10px;
+        }
+        button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
-    <h1>BUKBER COK</h1>
-    <p>Info bukber<br>Tanggal 22 Sabtu malam Minggu<br>Kumpul jam 16.00 nang omahe azkal</p>
 
-    <!-- Image with Loading Effect -->
-    <div class="image-container">
-        <div class="loader"></div>  <!-- Spinner (loading animation) -->
-        <img src="https://i.postimg.cc/CM2gM5YF/FB-IMG-1702209354136.jpg" alt="Bukber Image" 
-             onload="this.previousElementSibling.style.display='none'">
+    <h1>Bukber Cok</h1>
+    
+    <p>Sabtu, 22 Maret 2025.</p>
+    <p>Kumpul jam 16.00, di rumah Azkal.</p>
+    <p>Bukber di Tulang Lunak, <a href="https://maps.app.goo.gl/xuYgMc2yRb3m9f8k9" target="_blank">link map</a></p>
+    
+    <button id="tombol" onclick="tampilkanGambar()">Ingfo lebih lanjut</button>
+    
+    <div id="infoGambar">
+        <p id="loading">Loading...</p>
+        <img id="gambar" alt="Informasi Tambahan">
     </div>
+
+    <script>
+        function tampilkanGambar() {
+            var gambar = document.getElementById("gambar");
+            var loading = document.getElementById("loading");
+            var infoGambar = document.getElementById("infoGambar");
+            var tombol = document.getElementById("tombol");
+
+            // Tampilkan div infoGambar dan teks loading
+            infoGambar.style.display = "block";
+            loading.style.display = "block";
+            gambar.style.display = "none";
+
+            // Set src gambar jika belum dimuat sebelumnya
+            if (!gambar.src) {
+                gambar.src = "https://i.postimg.cc/LXkwRBBn/images-5.jpg";
+                
+                // Saat gambar selesai dimuat
+                gambar.onload = function() {
+                    loading.style.display = "none"; 
+                    gambar.style.display = "block"; 
+                };
+            } else {
+                // Jika gambar sudah ada, langsung tampilkan tanpa loading lagi
+                loading.style.display = "none"; 
+                gambar.style.display = "block";
+            }
+
+            // Matikan tombol setelah ditekan sekali
+            tombol.disabled = true;
+        }
+    </script>
 
 </body>
 </html>
